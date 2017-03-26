@@ -1,0 +1,7 @@
+{
+  "projects": {
+    "default": "galeria-de-moldes",
+    "production": "galeria-de-moldes",
+    "staging": "galeria-de-moldes-dev"
+  }
+}
