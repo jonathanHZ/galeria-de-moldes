@@ -19,12 +19,17 @@ pipeline {
             steps {
                 parallel (
                     "Node modules" : { 
-                            sh 'npm install'
+                        sh 'npm install'
                     },
                     "Firebase tools" : { 
                         sh "npm install -g firebase-tools" 
                     }
                 )
+            }
+        }
+        stage('Build') {
+            steps {
+                sh "npm run build"
             }
         }
         stage('Deploy') {
