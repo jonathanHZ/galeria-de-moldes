@@ -1,6 +1,6 @@
 {
   "name": "galeria-de-moldes",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "license": "MIT",
   "scripts": {
     "ng": "ng",
@@ -9,7 +9,8 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "deploy": "ng build -prod && firebase deploy --only hosting"
+    "deploy": "ng build -prod && firebase deploy",
+    "deploy-staging": "ng build -prod && firebase deploy -P staging"
   },
   "private": true,
   "dependencies": {
