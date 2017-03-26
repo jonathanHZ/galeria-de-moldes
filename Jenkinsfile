@@ -16,16 +16,18 @@ pipeline {
             }
         }
         stage('Install dependencies') {
-            parallel node_mod: {
-                node('node_mod') {
-                    sh 'npm install'
+            parallel (
+                "Node modules" : { 
+                    node { 
+                        sh 'npm install'
+                    } 
+                },
+                "Firebase tools" : { 
+                    node { 
+                        sh "npm install -g firebase-tools"                                                       
+                    } 
                 }
-            },
-            firebase: {
-                node('firebase') {
-                    sh 'npm install -g firebase-tools'
-                }
-            }
+          )
         }
         stage('Deploy') {
             steps {
