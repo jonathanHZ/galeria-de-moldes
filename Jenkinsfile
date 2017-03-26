@@ -17,14 +17,15 @@ pipeline {
         }
         stage('Install dependencies') {
             steps {
-                parallel (
+                        sh 'npm install'
+                /*parallel (
                     "Node modules" : { 
                         sh 'npm install'
                     },
                     "Firebase tools" : { 
                         sh "npm install -g firebase-tools" 
                     }
-                )
+                )*/
             }
         }
         stage('Build') {
@@ -34,7 +35,7 @@ pipeline {
         }
         stage('Deploy') {
             steps {
-                echo 'Deploying....'
+                sh 'npm run deploy-staging'
             }
         }
     }
