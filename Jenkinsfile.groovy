@@ -10,14 +10,14 @@
 pipeline {
     agent any
     stages {
-        stage('Git checkout') {
+        /*stage('Git checkout') {
             steps {
                 checkout scm
             }
-        }
+        }*/
         stage('Install dependencies') {
             steps {
-                        sh 'npm install'
+                sh 'npm install'
                 /*parallel (
                     "Node modules" : { 
                         sh 'npm install'
