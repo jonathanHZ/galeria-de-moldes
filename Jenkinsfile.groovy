@@ -10,11 +10,9 @@
 pipeline {
     agent any
     stages {
-        /*stage('Git checkout') {
-            steps {
-                checkout scm
-            }
-        }*/
+        docker.image('node:latest').inside {
+            sh 'echo "docker"'
+        }
         stage('Install dependencies') {
             steps {
                 sh 'npm install'
