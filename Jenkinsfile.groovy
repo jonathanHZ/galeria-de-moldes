@@ -10,14 +10,15 @@
 pipeline {
     agent any
     stages {
+        /*stage('Git checkout') {
+            steps {
+                checkout scm
+            }
+        }*/
         stage('Install dependencies') {
             steps {
-
-                docker.image('node:latest').inside {
-                    sh 'echo "docker" && npm i'
-                }
-                /*sh 'npm install'
-                parallel (
+                sh 'sudo npm install'
+                /*parallel (
                     "Node modules" : { 
                         sh 'npm install'
                     },
