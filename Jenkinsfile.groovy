@@ -10,13 +10,14 @@
 pipeline {
     agent any
     stages {
-        docker.image('node:latest').inside {
-            sh 'echo "docker"'
-        }
         stage('Install dependencies') {
             steps {
-                sh 'npm install'
-                /*parallel (
+
+                docker.image('node:latest').inside {
+                    sh 'echo "docker" && npm i'
+                }
+                /*sh 'npm install'
+                parallel (
                     "Node modules" : { 
                         sh 'npm install'
                     },
