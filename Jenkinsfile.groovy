@@ -17,7 +17,7 @@ pipeline {
         }*/
         stage('Install dependencies') {
             steps {
-                sh 'ls'
+                sh 'pwd'
                 sh 'npm install'
                 /*parallel (
                     "Node modules" : { 
