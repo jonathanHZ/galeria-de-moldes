@@ -37,8 +37,8 @@
     }
 }*/
 
-node {
-    agent any
+agent any
+node('galeria-de-moldes') {
     stages {
         stage('build docker image') {
             try {
