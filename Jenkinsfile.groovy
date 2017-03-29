@@ -37,10 +37,10 @@
     }
 }*/
 
-agent any
-node('galeria-de-moldes') {
+node 'galeria-de-moldes' {
+    agent any
     stages {
-        stage('build docker image') {
+        stage 'build docker image' {
             try {
                 sh 'docker build -f /Dockersfiles/node/dockerfile'
                 sh 'docker images'
