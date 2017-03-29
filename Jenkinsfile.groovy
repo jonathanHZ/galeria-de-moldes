@@ -37,7 +37,6 @@ pipeline {
         stage('Deploy') {
             steps {
                 sh 'npm run deploy-staging'
-                sh currentBuild.result
             }
         }
     }
