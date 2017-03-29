@@ -14,7 +14,7 @@ pipeline {
             steps {
                 sh 'pwd'
                 sh 'ls'
-                sh 'docker build -f ./Dockersfiles/node/'
+                sh 'docker build -f /Dockersfiles/node/'
                 sh 'docker images'
                 sh 'ls'
                 // sh 'npm install'
