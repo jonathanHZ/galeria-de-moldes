@@ -17,8 +17,7 @@ pipeline {
         }*/
         stage('Install dependencies') {
             steps {
-                sh ${env.WORKSPACE}
-                sh ${env.JENKINS_HOME}
+                sh 'ls'
                 sh 'npm install'
                 /*parallel (
                     "Node modules" : { 
