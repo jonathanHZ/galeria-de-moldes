@@ -13,7 +13,7 @@ pipeline {
         stage('Install dependencies') {
             steps {
                 sh 'pwd'
-                sh 'docker build -f /Dockersfiles/node/dockerfile'
+                sh 'docker build -f /Dockersfiles/node/Dockerfile'
                 sh 'docker images'
                 sh 'ls'
                 // sh 'npm install'
