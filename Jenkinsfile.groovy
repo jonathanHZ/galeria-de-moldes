@@ -14,7 +14,7 @@ pipeline {
             steps {
                 sh 'pwd'
                 sh 'ls'
-                sh 'docker build -t kyani/node .'
+                sh 'docker build -t $WORKSPACE/node ./Dockerfiles/node'
                 sh 'docker images'
                 sh 'ls'
                 // sh 'npm install'
