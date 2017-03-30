@@ -3,6 +3,9 @@ pipeline {
     agent none
     stages {
         stage('Install dependencies') {
+            agent {
+                 label 'dependencies'
+             }
             steps {
                 sh 'npm install'
             }
