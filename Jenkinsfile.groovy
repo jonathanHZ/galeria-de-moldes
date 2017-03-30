@@ -44,7 +44,7 @@
 node {
   currentBuild.result = "SUCCESS"
   try {
-    workspace = "${env.WORKSPACE}"
+    workspace = env.WORKSPACE
     stage('docker node'){
         sh('docker build -t jhernandezz/gdm-node ./Dockerfiles/node')
         sh('echo "{$workspace}"')
