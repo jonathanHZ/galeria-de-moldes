@@ -26,8 +26,8 @@
                         sh "npm install -g firebase-tools" 
                     }
                 )*/
-            }
-        }
+        //     }
+        // }
         /*stage('Build') {
             steps {
                 sh "npm run build"
