@@ -4,7 +4,7 @@ pipeline {
     stages {
         stage('Install dependencies') {
             agent {
-                 label 'dependencies'
+                 label 'master'
              }
             steps {
                 sh 'npm install'
@@ -21,7 +21,7 @@ pipeline {
         }
         stage('deploy') {
             agent {
-                label 'deploy-host'
+                label 'master'
             }
             steps {
                 sh 'npm run deploy-staging'
