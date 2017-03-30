@@ -41,7 +41,6 @@
 /*    }
 }*/
 
-#!/usr/bin/env groovy
 node {
   currentBuild.result = "SUCCESS"
   try {
