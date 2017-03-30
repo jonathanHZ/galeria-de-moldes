@@ -48,9 +48,9 @@ node {
     stage('docker node'){
         sh('docker build -t jhernandezz/gdm-node ./Dockerfiles/node')
         echo "${workspace}"
-        sh('docker run --name node jhernandezz/gdm-node')
+        sh('docker run --name node --workdir /Users/JhernandezZ/.jenkins/workspace/Galeria-de-moldes-dev jhernandezz/gdm-node npm i')
         sh('docker exec node ls')
-        sh('docker exec node npm i')
+        // sh('docker exec node npm i')
     }
     stage('Test'){
         sh('echo "Test"')
