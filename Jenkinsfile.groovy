@@ -1,28 +1,26 @@
 #!groovy
 pipeline {
-    agent none
+    agent any
     stages {
-        stage('Install dependencies') {
-            agent {
-                 label 'master'
-             }
+        stage('Install dependencies') 
             steps {
                 sh 'npm install'
             }
         }
         stage('build') {
-             agent {
-                 label 'master'
-             }
-             steps {   
-                // checkout scm
-                sh "npm run build"
-            }
+             parallel (
+                "build" : { 
+                    sh 'npm run build'
+                },
+                "unit test" : { 
+                    sh "npm test" 
+                },
+                "lint" : { 
+                    sh "npm run lint" 
+                }
+            )
         }
         stage('deploy') {
-            agent {
-                label 'master'
-            }
             steps {
                 sh 'npm run deploy-staging'
             }
