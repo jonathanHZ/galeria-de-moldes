@@ -1,4 +1,31 @@
 #!groovy
+pipeline {
+    agent none
+    stages {
+        stage('Install dependencies') {
+            steps {
+                sh 'npm install'
+            }
+        }
+        stage('build') {
+             agent {
+                 label 'master'
+             }
+             steps {   
+                // checkout scm
+                sh "npm run build"
+            }
+        }
+        stage('deploy') {
+            agent {
+                label 'deploy-host'
+            }
+            steps {
+                sh 'npm run deploy-staging'
+            }
+        }
+    }
+}
 /*node {
     stage 'git checkout'
     checkout scm
@@ -12,23 +39,27 @@
     stages {
         stage('Install dependencies') {
             steps {
+                docker.image('node:774').inside {
+                    git '…your-sources…'
+                    sh 'mvn -B clean install'
+                }
                 sh 'pwd'
                 sh 'ls'
                 sh 'docker build -t kyani/node ./Dockerfiles/node'
                 sh 'docker images'
-                sh 'ls'*/
-                // sh 'npm install'
-                /*parallel (
+                sh 'ls'
+                sh 'npm install'
+                parallel (
                     "Node modules" : { 
                         sh 'npm install'
                     },
                     "Firebase tools" : { 
                         sh "npm install -g firebase-tools" 
                     }
-                )*/
-        //     }
-        // }
-        /*stage('Build') {
+                )
+            }
+        }
+        stage('Build') {
             steps {
                 sh "npm run build"
             }
@@ -37,67 +68,6 @@
             steps {
                 sh 'npm run deploy-staging'
             }
-        }*/
-/*    }
+        }
+    }
 }*/
-
-node {
-  currentBuild.result = "SUCCESS"
-  try {
-    def workspace = env.WORKSPACE
-    stage('docker node'){
-        sh('docker build -t jhernandezz/gdm-node ./Dockerfiles/node')
-        echo "${workspace}"
-        sh('docker run --name node --workdir /Users/JhernandezZ/.jenkins/workspace/Galeria-de-moldes-dev jhernandezz/gdm-node npm i')
-        sh('docker exec node ls')
-        // sh('docker exec node npm i')
-    }
-    stage('Test'){
-        sh('echo "Test"')
-    }
-    stage('Docker'){
-        sh('echo "Docker"')
-    }
-    stage('Cleanup'){
-        sh('echo "Cleanup"')
-    }
-  } catch (error) {
-      currentBuild.result = "FAILURE"
-      echo "project build error: ${error}"
-      throw error
-  }
-}
-
-def version(){
-  def pom = readMavenPom()
-  return "${pom.version}"
-}
-
-def snapshot(){
-  def branch
-  if(env.BRANCH_NAME == 'master' || env.BRANCH_NAME == 'develop'){
-    branch = env.BRANCH_NAME
-  }else if(env.BRANCH_NAME.startsWith("feature")){
-    def matcher = (env.BRANCH_NAME =~ /(([A-Z])*-(\d*))/)
-    branch = matcher[0][1]
-  }else if(env.BRANCH_NAME.startsWith("release")){
-    branch = 'release'
-  }else{
-    branch = 'snapshot'
-  }
-  return branch
-}
-
-def isPullRequest(){
-  def pullRequest = sh (
-    script: "git log --pretty='format:%H' --merges --all-match --grep 'feature/' --grep 'pull request #' | grep `git log --pretty='format:%H' -1`",
-    returnStatus: true
-  )
-  return (pullRequest == 0) ? true : false
-}
-
-def isRelease(){
-  def matcher = (env.BRANCH_NAME =~ /^release\//)
-  matcher ? true : false
-}
-
