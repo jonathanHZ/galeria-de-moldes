@@ -8,17 +8,19 @@ pipeline {
             }
         }
         stage('build') {
-             parallel (
-                "build" : { 
-                    sh 'npm run build'
-                },
-                "unit test" : { 
-                    sh "npm test" 
-                },
-                "lint" : { 
-                    sh "npm run lint" 
-                }
-            )
+            steps {
+                parallel (
+                    "build" : { 
+                        sh 'npm run build'
+                    },
+                    "unit test" : { 
+                        sh "npm test" 
+                    },
+                    "lint" : { 
+                        sh "npm run lint" 
+                    }
+                )
+            }
         }
         stage('deploy') {
             steps {
