@@ -44,11 +44,11 @@
 node {
   currentBuild.result = "SUCCESS"
   try {
-    workspace = env.WORKSPACE
+    def workspace = env.WORKSPACE
     stage('docker node'){
         sh('docker build -t jhernandezz/gdm-node ./Dockerfiles/node')
         echo "${workspace}"
-        sh('docker run --name node --workdir ${workspace} jhernandezz/gdm-node')
+        sh('docker run --name node --workdir "${workspace}" jhernandezz/gdm-node')
         sh('docker exec node ls')
         sh('docker exec node npm i')
     }
