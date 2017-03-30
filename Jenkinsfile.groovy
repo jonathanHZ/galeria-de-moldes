@@ -7,7 +7,7 @@
     sh 'npm install'
 }*/
 
-pipeline {
+/*pipeline {
     agent any
     stages {
         stage('Install dependencies') {
@@ -16,7 +16,7 @@ pipeline {
                 sh 'ls'
                 sh 'docker build -t kyani/node ./Dockerfiles/node'
                 sh 'docker images'
-                sh 'ls'
+                sh 'ls'*/
                 // sh 'npm install'
                 /*parallel (
                     "Node modules" : { 
@@ -38,5 +38,62 @@ pipeline {
                 sh 'npm run deploy-staging'
             }
         }*/
+/*    }
+}*/
+
+#!/usr/bin/env groovy
+node {
+  currentBuild.result = "SUCCESS"
+  try {
+    stage('Setup'){
+        sh('echo "Setup"')
     }
+    stage('Test'){
+        sh('echo "Test"')
+    }
+    stage('Docker'){
+        sh('echo "Docker"')
+    }
+    stage('Cleanup'){
+        sh('echo "Cleanup"')
+    }
+  } catch (error) {
+      currentBuild.result = "FAILURE"
+      echo "project build error: ${error}"
+      throw error
+  }
 }
+
+def version(){
+  def pom = readMavenPom()
+  return "${pom.version}"
+}
+
+def snapshot(){
+  def branch
+  if(env.BRANCH_NAME == 'master' || env.BRANCH_NAME == 'develop'){
+    branch = env.BRANCH_NAME
+  }else if(env.BRANCH_NAME.startsWith("feature")){
+    def matcher = (env.BRANCH_NAME =~ /(([A-Z])*-(\d*))/)
+    branch = matcher[0][1]
+  }else if(env.BRANCH_NAME.startsWith("release")){
+    branch = 'release'
+  }else{
+    branch = 'snapshot'
+  }
+  return branch
+}
+
+def isPullRequest(){
+  def pullRequest = sh (
+    script: "git log --pretty='format:%H' --merges --all-match --grep 'feature/' --grep 'pull request #' | grep `git log --pretty='format:%H' -1`",
+    returnStatus: true
+  )
+  return (pullRequest == 0) ? true : false
+}
+
+def isRelease(){
+  def matcher = (env.BRANCH_NAME =~ /^release\//)
+  matcher ? true : false
+}
+
