@@ -44,8 +44,11 @@
 node {
   currentBuild.result = "SUCCESS"
   try {
-    stage('Setup'){
-        sh('echo "Setup"')
+    stage('docker node'){
+        sh('docker build -t jhernandezz/gdm-node ./Dockerfiles/node')
+        sh('docker run --workdir ${env.WORKSPACE} --name node jhernandezz/gdm-node')
+        sh('docker exec node ls')
+        sh('docker exec node npm i')
     }
     stage('Test'){
         sh('echo "Test"')
