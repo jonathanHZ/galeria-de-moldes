@@ -28,7 +28,7 @@ LABEL description="This file describes the standard way to build the Electron Bu
 
 # ENV variables
 # ----------
-ENV DATA=/Galeria-de-moldes-dev
+ENV DATA=/gdm
 ENV NODE_MODULES=${DATA}/node_modules
 
 # Install Dependencies

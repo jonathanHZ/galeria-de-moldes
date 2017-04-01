@@ -4,10 +4,11 @@ pipeline {
     stages {
         stage('Install dependencies') {
             steps {
-                sh 'npm install'
+                // sh 'docker build -t gdm/node ./Dockerfiles/node'
+                sh '${workspace}'
             }
         }
-        stage('build') {
+        /*stage('build') {
             steps {
                 parallel (
                     "build" : { 
@@ -23,7 +24,7 @@ pipeline {
             steps {
                 sh 'npm run deploy-staging'
             }
-        }
+        }*/
     }
 }
 /*node {

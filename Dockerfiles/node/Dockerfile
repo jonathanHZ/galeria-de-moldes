@@ -1,17 +1,17 @@
 #
-# Kyani Node Docker Image
+# gdm Node Docker Image
 # --------------------------
-# This file describes the standard way to build the Node Docker image for Kyani Project
+# This file describes the standard way to build the Node Docker image for gdm Project
 #
 # HOW TO BUILD THIS IMAGE
 # -----------------------
 # Run:
-#      $ docker build -t kyani/node .
+#      $ docker build -t gdm/node .
 #
 # HOW TO RUN THIS IMAGE
 # -----------------------
 # Run:
-#      $ docker run --name node kyani/node
+#      $ docker run --name node gdm/node
 #
 # Pull base image
 # ----------
@@ -19,12 +19,12 @@ FROM mhart/alpine-node:7.7.4
 
 # Maintainer
 # ----------
-MAINTAINER Andrés Amado <aamadoc@psl.com.co>
+MAINTAINER Jonathan Hernández Zapata <jhernandezz.dev@gmail.com>
 
 # Labels
 # ----------
 LABEL version="1.0.0"
-LABEL description="This file describes the standard way to build the Node Docker image for Kyani Project!"
+LABEL description="This file describes the standard way to build the Node Docker image for gdm Project!"
 
 # ENV variables
 # ----------
