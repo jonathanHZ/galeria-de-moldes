@@ -5,24 +5,34 @@ pipeline {
         stage('Install dependencies') {
             steps {
                 sh 'docker build -t gdm/node ./Dockerfiles/node'
-                sh 'docker run --user root -dt  --name="gdm_${BUILD_ID}" --volume ${WORKSPACE}:/opt/gdm gdm/node bash'
-                sh 'docker exec --user root "gdm_${BUILD_ID}" sh -c "cd opt/gdm && ls"'
-                sh 'docker rm -f "gdm_${BUILD_ID}"'
+                sh 'docker run --user root -dt  --name="gdm_node_${BUILD_ID}" --volume ${WORKSPACE}:/opt/gdm gdm/node bash'
+                sh 'docker exec --user root "gdm_node_${BUILD_ID}" sh -c "cd opt/gdm && npm i"'
+                sh 'docker rm -f "gdm_node_${BUILD_ID}"'
             }
         }
-        /*stage('build') {
+        stage('build') {
             steps {
+                sh 'docker build -t gdm/angular-cli ./Dockerfiles/angular-cli'
+            }
+            {
                 parallel (
                     "build" : { 
-                        sh 'npm run build'
+                        sh 'docker run --user root -dt  --name="gdm_ng_build_${BUILD_ID}" --volume ${WORKSPACE}:/opt/gdm gdm/angular-cli bash'
+                        sh 'docker exec --user root "gdm_ng_build_${BUILD_ID}" sh -c "cd opt/gdm && npm run build"'
+                        sh 'docker rm -f "gdm_ng_build_${BUILD_ID}"'
                     },
                     "lint" : { 
-                        sh "npm run lint" 
+                        sh 'docker run --user root -dt  --name="gdm_ng_lint_${BUILD_ID}" --volume ${WORKSPACE}:/opt/gdm gdm/angular-cli bash'
+                        sh 'docker exec --user root "gdm_ng_lint_${BUILD_ID}" sh -c "cd opt/gdm && npm run lint"'
+                        sh 'docker rm -f "gdm_ng_lint_${BUILD_ID}"'
                     }
                 )
             }
+            {
+                sh 'cd public && ls'
+            }
         }
-        stage('deploy') {
+        /*stage('deploy') {
             steps {
                 sh 'npm run deploy-staging'
             }

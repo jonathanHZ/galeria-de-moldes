@@ -1,21 +1,21 @@
 #
-# Kyani Protractor Docker Image
+# gdm Protractor Docker Image
 # --------------------------
-# This file describes the standard way to build the Protractor Docker image for Kyani Project
+# This file describes the standard way to build the Protractor Docker image for gdm Project
 #
 # HOW TO BUILD THIS IMAGE
 # -----------------------
 # Run:
-#      $ docker build -t kyani/protractor .
+#      $ docker build -t gdm/angular-cli .
 #
 # HOW TO RUN THIS IMAGE
 # -----------------------
 # Run:
-#      $ docker run --name node kyani/protractor
+#      $ docker run --name node gdm/angular-cli
 #
 # Pull base image
 # ----------
-FROM yellowblackandwhite/alpine-chrome
+FROM gdm/node
 
 # Maintainer
 # ----------
@@ -24,7 +24,7 @@ MAINTAINER Andrés Amado <aamadoc@psl.com.co>
 # Labels
 # ----------
 LABEL version="1.0.0"
-LABEL description="This file describes the standard way to build the Protractor Docker image for Kyani Project!"
+LABEL description="This file describes the standard way to build the Protractor Docker image for gdm Project!"
 
 # USER build
 # ----------
@@ -44,7 +44,7 @@ ENV NODE_VERSION=v6.9.2 \
     DEL_PKGS="libgcc libstdc++" \
     RM_DIRS=/usr/include
 
-ENV DATA=/opt/kyani
+ENV DATA=/opt/gdm
 ENV NODE_MODULES=${DATA}/node_modules
 
 # Install Dependencies
