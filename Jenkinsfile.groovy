@@ -19,25 +19,25 @@ pipeline {
         stage('build') {
             steps {
                 parallel (
-                    "build" : { 
+                    "Docker build prod" : { 
                         sh 'docker run --user root -dt  --name="gdm_ng_build_${BUILD_ID}" --volume ${WORKSPACE}:/opt/gdm gdm/angular-cli bash'
                         sh 'docker exec --user root "gdm_ng_build_${BUILD_ID}" sh -c "cd opt/gdm && npm run build"'
                         sh 'docker rm -f "gdm_ng_build_${BUILD_ID}"'
                     },
-                    "lint" : { 
+                    "Docker tslint" : { 
                         sh 'docker run --user root -dt  --name="gdm_ng_lint_${BUILD_ID}" --volume ${WORKSPACE}:/opt/gdm gdm/angular-cli bash'
                         sh 'docker exec --user root "gdm_ng_lint_${BUILD_ID}" sh -c "cd opt/gdm && npm run lint"'
                         sh 'docker rm -f "gdm_ng_lint_${BUILD_ID}"'
                     }
                 )
-                sh 'cd public && ls'
             }
         }
-        /*stage('deploy') {
+        stage('deploy') {
             steps {
-                sh 'npm run deploy-staging'
+                sh 'cd public && ls'
+                // sh 'npm run deploy-staging'
             }
-        }*/
+        }
     }
 }
 /*node {
