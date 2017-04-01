@@ -1,4 +1,7 @@
 #!groovy
+import hudson.FilePath;
+import jenkins.model.Jenkins;
+
 try {
     currentBuild.result = "SUCCESSFUL"
     pipeline {
