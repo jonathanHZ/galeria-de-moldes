@@ -14,7 +14,7 @@ pipeline {
             steps {
                 sh 'docker build -t gdm/angular-cli ./Dockerfiles/angular-cli'
             }
-            {
+            /*{
                 parallel (
                     "build" : { 
                         sh 'docker run --user root -dt  --name="gdm_ng_build_${BUILD_ID}" --volume ${WORKSPACE}:/opt/gdm gdm/angular-cli bash'
@@ -30,7 +30,7 @@ pipeline {
             }
             {
                 sh 'cd public && ls'
-            }
+            }*/
         }
         /*stage('deploy') {
             steps {
