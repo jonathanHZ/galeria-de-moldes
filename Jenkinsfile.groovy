@@ -41,7 +41,7 @@ try {
             stage('deploy') {
                 steps {
                     sh 'docker run --user root -dt  --name="gdm_firebase_${BUILD_ID}" --volume ${WORKSPACE}:/opt/gdm gdm/firebase bash'
-                    sh 'docker exec --user root "gdm_firebase_${BUILD_ID}" sh -c "cd opt/gdm/public && firebase deploy -P staging --token 1/isqwPUaI-3A1vyTEcwkHT1ied_mBai_S-E7wz_Tcvck'
+                    sh 'docker exec --user root "gdm_firebase_${BUILD_ID}" sh -c "cd opt/gdm/public && firebase deploy -P staging --token 1/isqwPUaI-3A1vyTEcwkHT1ied_mBai_S-E7wz_Tcvck"'
                     sh 'docker stop "gdm_firebase_${BUILD_ID}"'
                     sh 'docker rm -f "gdm_firebase_${BUILD_ID}"'
                 }
