@@ -1,12 +1,11 @@
 #!groovy
-def workspace = ${env.WORKSPACE}
 pipeline {
     agent any
     stages {
         stage('Install dependencies') {
             steps {
                 // sh 'docker build -t gdm/node ./Dockerfiles/node'
-                sh '${workspace}'
+                sh '${env.WORKSPACE}'
             }
         }
         /*stage('build') {
