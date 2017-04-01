@@ -4,8 +4,10 @@ pipeline {
     stages {
         stage('Install dependencies') {
             steps {
-                // sh 'docker build -t gdm/node ./Dockerfiles/node'
-                sh '${WORKSPACE}'
+                sh 'docker build -t gdm/node ./Dockerfiles/node'
+                sh 'docker run --user root -dt  --name="gdm_${BUILD_ID}" --volume ${WORKSPACE}:/opt/gdm gdm/node bash'
+                sh 'docker exec --user root "gdm_${BUILD_ID}" ls'
+                sh 'docker rm -f "gdm_${BUILD_ID}"'
             }
         }
         /*stage('build') {
