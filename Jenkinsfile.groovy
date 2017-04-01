@@ -58,12 +58,7 @@ try {
         }
     }
 } catch (error) { 
-    currentBuild.result = "FAILED"
-    sh 'exit 1'
 } finally {
-    sh 'docker stop $(docker ps -a -q)'
-    sh 'docker rm $(docker ps -a -q)'
-    sh 'exit 0'
 }
 
 /*node {
