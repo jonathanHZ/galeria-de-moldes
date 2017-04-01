@@ -15,7 +15,7 @@
 #
 # Pull base image
 # ----------
-FROM gdm/angular-cli
+FROM gdm/node
 
 # Maintainer
 # ----------
