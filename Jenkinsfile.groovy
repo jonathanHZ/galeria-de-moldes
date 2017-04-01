@@ -37,7 +37,7 @@ pipeline {
         stage('deploy') {
             steps {
                 sh 'docker run --user root -dt  --name="gdm_firebase_${BUILD_ID}" --volume ${WORKSPACE}:/opt/gdm gdm/firebase bash'
-                sh 'docker exec --user root "gdm_firebase_${BUILD_ID}" sh -c "cd opt/gdm/public && npm run deploy-staging --token ${FIREBASE_TOKEN}"'
+                sh 'docker exec --user root "gdm_firebase_${BUILD_ID}" sh -c "cd opt/gdm/public && firebase deploy -P staging --token ${FIREBASE_TOKEN}"'
                 sh 'docker rm -f "gdm_firebase_${BUILD_ID}"'
             }
         }
