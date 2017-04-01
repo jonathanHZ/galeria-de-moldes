@@ -1,4 +1,5 @@
 #!groovy
+def FIREBASE_TOKEN = "1/isqwPUaI-3A1vyTEcwkHT1ied_mBai_S-E7wz_Tcvck"
 pipeline {
     agent any
     stages {
@@ -6,6 +7,7 @@ pipeline {
             steps {
                 sh 'docker build -t gdm/node ./Dockerfiles/node'
                 sh 'docker build -t gdm/angular-cli ./Dockerfiles/angular-cli'
+                sh 'docker build -t gdm/firebase ./Dockerfiles/firebase'
             }
 
         }
@@ -34,8 +36,9 @@ pipeline {
         }
         stage('deploy') {
             steps {
-                sh 'cd public && ls'
-                // sh 'npm run deploy-staging'
+                sh 'docker run --user root -dt  --name="gdm_firebase_${BUILD_ID}" --volume ${WORKSPACE}:/opt/gdm gdm/firebase bash'
+                sh 'docker exec --user root "gdm_firebase_${BUILD_ID}" sh -c "cd opt/gdm/public && npm run deploy-staging --token ${FIREBASE_TOKEN}"'
+                sh 'docker rm -f "gdm_firebase_${BUILD_ID}"'
             }
         }
     }
