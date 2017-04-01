@@ -5,7 +5,7 @@ pipeline {
         stage('Install dependencies') {
             steps {
                 // sh 'docker build -t gdm/node ./Dockerfiles/node'
-                sh '${env.WORKSPACE}'
+                sh '${WORKSPACE}'
             }
         }
         /*stage('build') {
