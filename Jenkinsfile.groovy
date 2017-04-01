@@ -1,4 +1,5 @@
 #!groovy
+def workspace = ${env.WORKSPACE}
 pipeline {
     agent any
     stages {
