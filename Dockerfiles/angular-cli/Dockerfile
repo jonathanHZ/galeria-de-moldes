@@ -19,7 +19,7 @@ FROM gdm/node
 
 # Maintainer
 # ----------
-MAINTAINER Andrés Amado <aamadoc@psl.com.co>
+MAINTAINER Jonthan Hernández Zapata <jhernandezz.dev@gmail.com>
 
 # Labels
 # ----------
