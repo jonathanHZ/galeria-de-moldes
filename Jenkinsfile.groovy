@@ -2,9 +2,15 @@
 pipeline {
     agent any
     stages {
-        stage('Install dependencies') {
+        stage('Build docker images') {
             steps {
                 sh 'docker build -t gdm/node ./Dockerfiles/node'
+                sh 'docker build -t gdm/angular-cli ./Dockerfiles/angular-cli'
+            }
+
+        }
+        stage('Install dependencies') {
+            steps {
                 sh 'docker run --user root -dt  --name="gdm_node_${BUILD_ID}" --volume ${WORKSPACE}:/opt/gdm gdm/node bash'
                 sh 'docker exec --user root "gdm_node_${BUILD_ID}" sh -c "cd opt/gdm && npm i"'
                 sh 'docker rm -f "gdm_node_${BUILD_ID}"'
@@ -12,7 +18,6 @@ pipeline {
         }
         stage('build') {
             steps {
-                sh 'docker build -t gdm/angular-cli ./Dockerfiles/angular-cli'
                 parallel (
                     "build" : { 
                         sh 'docker run --user root -dt  --name="gdm_ng_build_${BUILD_ID}" --volume ${WORKSPACE}:/opt/gdm gdm/angular-cli bash'
