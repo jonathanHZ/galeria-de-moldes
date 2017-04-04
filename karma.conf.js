@@ -11,7 +11,12 @@ module.exports = function (config) {
       require('karma-phantomjs-launcher'),
       require('karma-jasmine-html-reporter'),
       require('karma-coverage-istanbul-reporter'),
-      require('@angular/cli/plugins/karma')
+      require('@angular/cli/plugins/karma'),
+      require('karma-allure-reporter'),
+      require('karma-coverage'),
+      require('karma-junit-reporter'),
+      require('karma-remap-coverage'),
+      require('karma-spec-reporter')
     ],
     client:{
       clearContext: false // leave Jasmine Spec Runner output visible in browser
@@ -25,16 +30,36 @@ module.exports = function (config) {
     mime: {
       'text/x-typescript': ['ts','tsx']
     },
-    coverageIstanbulReporter: {
-      reports: [ 'html', 'lcovonly' ],
-      fixWebpackSourcePaths: true
-    },
+		// Configure code coverage reporter
+		coverageReporter: {
+			dir: 'build/coverage/',
+			reporters: [{
+					type: 'text-summary'
+				},
+				{
+					type: 'html'
+				},
+				{
+					type: 'lcovonly',
+					file: 'coverage.lcov'
+				}
+			]
+		},
+		// Configure junit test reporter
+		junitReporter: {
+			outputDir: 'build/test'
+		},
     angularCli: {
       environment: 'dev'
     },
-    reporters: config.angularCli && config.angularCli.codeCoverage
-              ? ['progress', 'coverage-istanbul']
-              : ['progress', 'kjhtml'],
+    reporters: [
+      'progress',
+			// Reference: https://github.com/karma-runner/karma-coverage
+			// Output code coverage files
+			'coverage',
+			// Reference: https://github.com/karma-runner/karma-junit-reporter
+			// Report results in junit xml format
+			'junit'],
     port: 9876,
     colors: true,
     logLevel: config.LOG_INFO,
