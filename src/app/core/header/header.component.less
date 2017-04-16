@@ -1,0 +1,24 @@
+@import "../../../styles.less";
+
+.header {
+    .navbar-default {
+        background-color: @green-dark;
+    }
+    .navbar-brand {
+        padding: 15px 15px 15px 0px;
+        &:hover {
+            background-color: @green-dark;
+            color: @green-tuberose;
+        }
+    }
+    .active {
+        background-color: @green-spring;
+        color: @text;
+    }
+    a {
+        color: @green-tuberose;
+        &:hover {
+            .active;       
+        }
+    }
+}
