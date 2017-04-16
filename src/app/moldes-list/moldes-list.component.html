@@ -1,7 +1,5 @@
 <div class="container">
   <div class="row">
-    <button class="btn btn-primary">{{title}}<i class="fa fa-check"></i></button>
-    <button class="btn btn-primary">{{title}}<i class="fa fa-check"></i></button>
-    <button class="btn btn-primary">{{title}}<i class="fa fa-check"></i></button>
+      <app-molde-card *ngFor="let molde of moldesList" [molde]=molde ></app-molde-card>
   </div>
 </div>

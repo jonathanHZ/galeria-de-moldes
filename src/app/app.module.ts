@@ -10,6 +10,9 @@ import { HeaderComponent } from './core/header/header.component';
 import { FooterComponent } from './core/footer/footer.component';
 import { MoldesListComponent } from './moldes-list/moldes-list.component';
 import { MoldesDetailComponent } from './moldes-detail/moldes-detail.component';
+import { GdmServiceService } from './shared/api/gdm-service.service';
+import { MoldeCardComponent } from './shared/components/molde-card/molde-card.component';
+import { CapitalizePipe } from './shared/filters/capitalize.pipe';
 
 @NgModule({
   declarations: [
@@ -18,6 +21,8 @@ import { MoldesDetailComponent } from './moldes-detail/moldes-detail.component';
     FooterComponent,
     MoldesListComponent,
     MoldesDetailComponent,
+    MoldeCardComponent,
+    CapitalizePipe,
   ],
   imports: [
     BrowserModule,
@@ -25,7 +30,7 @@ import { MoldesDetailComponent } from './moldes-detail/moldes-detail.component';
     HttpModule,
     RouterModule.forRoot(appRoutes)
   ],
-  providers: [],
+  providers: [GdmServiceService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
