@@ -13,6 +13,7 @@ import { MoldesDetailComponent } from './moldes-detail/moldes-detail.component';
 import { GdmServiceService } from './shared/api/gdm-service.service';
 import { MoldeCardComponent } from './shared/components/molde-card/molde-card.component';
 import { CapitalizePipe } from './shared/filters/capitalize.pipe';
+import { MoldeTypePipe } from './shared/filters/molde-type.pipe';
 
 @NgModule({
   declarations: [
@@ -23,6 +24,7 @@ import { CapitalizePipe } from './shared/filters/capitalize.pipe';
     MoldesDetailComponent,
     MoldeCardComponent,
     CapitalizePipe,
+    MoldeTypePipe,
   ],
   imports: [
     BrowserModule,

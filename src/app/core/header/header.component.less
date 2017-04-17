@@ -4,17 +4,31 @@
     .navbar-default {
         background-color: @green-dark;
     }
+
+    .navbar-header {
+        color: @green-tuberose;
+    }
+
     .navbar-brand {
-        padding: 15px 15px 15px 0px;
+        padding: 15px 15px 15px 15px;
         &:hover {
             background-color: @green-dark;
             color: @green-tuberose;
         }
     }
+
     .active {
         background-color: @green-spring;
         color: @text-primary;
     }
+
+    .navbar-toggle {
+        padding: 6px 10px;
+        &:hover, &:focus {
+            .active;
+        }
+    }
+
     a {
         color: @white;
         &:hover {

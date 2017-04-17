@@ -1,7 +1,12 @@
-<div class="moldeCard col-md-4 col-sm-6 text-center">
+<div class="moldeCard col-md-4 col-sm-6 col-xs-12 text-center">
   <div class="moldeCardContainer">
-    <div class="moldeCardTitle">
-      {{ molde.name | capitalize }}
+    <div class="moldeCardImageContainer">
+      <div class="moldeCardImage {{ molde.uid | moldeType }}"></div>
+    </div>
+    <div class="moldeCardDetails">
+      <div class="moldeCardTitle">
+        {{ molde.name | capitalize }}
+      </div>
     </div>
   </div>
 </div>
