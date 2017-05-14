@@ -7,11 +7,10 @@ import { Molde } from '../../domain/molde';
   styleUrls: ['./molde-card.component.less']
 })
 export class MoldeCardComponent implements OnInit {
+
   @Input()  molde: Molde;
   constructor() { }
 
-  ngOnInit() {
-    console.log(this.molde);
-  }
+  ngOnInit() {}
 
 }
